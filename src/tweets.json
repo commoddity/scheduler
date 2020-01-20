@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Newton",
+    "avatar": "https://api.adorable.io/avatars/64/newton@adorable.png",
+    "content": "Build encapsulated components that manage their own state, then compose them to make complex UIs.",
+    "date": "3 days ago"
+  },
+  {
+    "id": 2,
+    "name": "Descartes",
+    "avatar": "https://api.adorable.io/avatars/64/descartes@adorable.png",
+    "content": "Declarative views make your code more predictable and easier to debug.",
+    "date": "4 days ago"
+  },
+  {
+    "id": 3,
+    "name": "Johann von Goethe",
+    "avatar": "https://api.adorable.io/avatars/64/johannvongoethe.png",
+    "content": "Since component logic is written in JavaScript instead of templates, you can easily pass rich data through your app and keep state out of the DOM.",
+    "date": "1 week ago"
+  }
+]

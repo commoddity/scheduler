@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css?family=Overpass");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Overpass, sans-serif;
+  margin: 1rem;
+  background-color: rgb(34, 47, 62);
+}
+
+h2 {
+  margin: 0;
+}
+
+.tweets {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tweet {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  max-width: 450px;
+  background-color: #f2f2f2;
+  border-radius: 1rem;
+  color: rgb(34, 47, 62);
+}
+
+.tweet__header {
+  display: flex;
+  background-color: rgb(29, 209, 161);
+  padding: 1rem;
+  color: #fff;
+  align-items: center;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.tweet__header-avatar {
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  margin-right: 1rem;
+  border: #fff solid 0.25rem;
+}
+
+.tweet__content {
+  padding: 1rem;
+}
+
+.tweet__footer {
+  padding: 1rem;
+  background-color: rgb(29, 209, 161);
+  border-radius: 0 0 1rem 1rem;
+  color: #fff;
+}
