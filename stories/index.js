@@ -15,13 +15,17 @@ import Appointment from "components/Appointment/index.js"
 import Header from "components/Appointment/Header.js"
 import Empty from "components/Appointment/Empty.js"
 import Show from "components/Appointment/Show.js"
+import Confirm from "components/Appointment/Confirm";
+import Status from "components/Appointment/Status";
+import Error from "components/Appointment/Error";
+import Form from "components/Appointment/Form";
 
 //STORIES BEGIN
 
 //Stories of BUTTON
 storiesOf("Button", module)
   .addParameters({
-    backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
+    backgrounds: [{ name: "dark", interviewer: "#222f3e", default: true }]
   })
   .add("Base", () => <Button>Base</Button>)
   .add("Confirm", () => <Button confirm>Confirm</Button>)
@@ -39,7 +43,7 @@ storiesOf("Button", module)
 //Stories of DAYLISTITEM
 storiesOf("DayListItem", module) 
 .addParameters({
-  backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
+  backgrounds: [{ name: "dark", interviewer: "#222f3e", default: true }]
 }) 
 .add("Unselected", () => <DayListItem name="Monday" spots={5} />) 
 .add("Selected", () => <DayListItem name="Monday" spots={5} selected />) 
@@ -70,7 +74,7 @@ const days = [
 
 storiesOf("DayList", module)
   .addParameters({
-    backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
+    backgrounds: [{ name: "dark", interviewer: "#222f3e", default: true }],
   })
   .add("Monday", () => (
     <DayList days={days} day={"Monday"} setDay={action("setDay")} />
@@ -89,7 +93,7 @@ const interviewer = {
 
 storiesOf("InterviewerListItem", module)
   .addParameters({
-    backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
+    backgrounds: [{ name: "dark", interviewer: "#222f3e", default: true }]
   })
   .add("Unselected", () => (
     <InterviewerListItem
@@ -127,25 +131,25 @@ const interviewers = [
 
 storiesOf("InterviewerList", module)
   .addParameters({
-    backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
+    backgrounds: [{ name: "dark", interviewer: "#222f3e", default: true }]
   })
   .add("Initial", () => (
     <InterviewerList
       interviewers={interviewers}
-      onChange={action("setInterviewer")}
+      setInterviewer={action("setInterviewer")}
     />
   ))
   .add("Preselected", () => (
     <InterviewerList
       interviewers={interviewers}
-      value={3}
-      onChange={action("setInterviewer")}
+      interviewer={3}
+      setInterviewer={action("setInterviewer")}
     />
   ));
 
 storiesOf("Appointment", module)
   .addParameters({
-      backgrounds: [{ name: "white", value: "#fff", default: true }]
+      backgrounds: [{ name: "white", interviewer: "#fff", default: true }]
   })
   .add("Appointment", () => (
     <Appointment 
@@ -172,5 +176,39 @@ storiesOf("Appointment", module)
       interviewer={interviewer}
       onEdit={action("onEdit")}
       onDelete={action("onDelete")}
+    />
+  ))
+  .add("Confirm", () => (
+    <Confirm
+      message="Delete the Appointment?"
+      onConfirm={action("onConfirm")}
+      onCancel={action("onCancel")}
+    />
+  ))
+  .add("Status", () => (
+    <Status 
+      message="Deleting"
+    />
+  ))
+  .add("Error", () => (
+    <Error
+      message="Could not delete appointment."
+      onClose={action("onClose")}
+    />
+  ))
+  .add("Edit", () => (
+    <Form
+      name
+      interviewers={interviewers}
+      interviewer={null}
+      onSave={action("onSave")}
+      onCancel={action("onCancel")}
+    />
+  ))
+  .add("Create", () => (
+    <Form
+      interviewers={interviewers}
+      onSave={action("onSave")}
+      onCancel={action("onCancel")}
     />
   ))
