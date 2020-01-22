@@ -13,7 +13,8 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
+    appointments: {},
+    interviewers: {}
   });
 
   const setDay = day => setState({ ...state, day });
@@ -21,12 +22,12 @@ export default function Application(props) {
   useEffect(() => {
     async function getDays() {
       try {
-        const [days, appointments] = await Promise.all([
+        const [days, appointments, interviewers] = await Promise.all([
           Axios.get(`/api/days`).then(res => res.data),
-          Axios.get(`/api/appointments`).then(res => res.data)
+          Axios.get(`/api/appointments`).then(res => res.data),
+          Axios.get(`/api/interviewers`).then(res => res.data)
         ])
-        console.log([days, appointments]);
-        setState(prev => ({ ...prev, days, appointments }))
+        setState(prev => ({ ...prev, days, appointments, interviewers }))
       } catch (error) {
         console.log(error);
       }
@@ -35,6 +36,19 @@ export default function Application(props) {
   }, []);
 
   const appointments = getAppointmentsForDay(state, state.day);
+
+  const schedule = appointments.map((appointment) => {
+    const interview = getInterview(state, appointment.interview);
+    return (
+      <Appointment
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+      />
+    );
+  });
+
 
   return (
     <main className="layout">
@@ -59,14 +73,7 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {appointments.map((appointment) => {
-          return (
-            <Appointment
-              key={appointment.id}
-              {...appointment}
-            />
-          )
-        })}
+        {schedule}
         <Appointment key="last" time="5pm" />
       </section>
     </main>
