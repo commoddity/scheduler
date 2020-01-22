@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import "components/Application.scss";
 
@@ -6,24 +7,6 @@ import "components/Appointment";
 
 import DayList from "components/DayList";
 import Appointment from "./Appointment";
-
-const days = [
-  {
-    id: 1,
-    name: "Monday",
-    spots: 2,
-  },
-  {
-    id: 2,
-    name: "Tuesday",
-    spots: 5,
-  },
-  {
-    id: 3,
-    name: "Wednesday",
-    spots: 0,
-  },
-];
 
 const appointments = [
   {
@@ -34,10 +17,10 @@ const appointments = [
     id: 2,
     time: "1pm",
     interview: {
-      student: "Lydia Miller-Jones",
+      student: "Dwayne \"The Rock\" Johnson",
       interviewer: {
         id: 1,
-        name: "Sylvia Palmer",
+        name: "Shigeru Miyamoto",
         avatar: "https://i.imgur.com/LpaY82x.png",
       }
     }
@@ -46,10 +29,10 @@ const appointments = [
     id: 3,
     time: "3pm",
     interview: {
-      student: "Jeremy Irons",
+      student: "Bernie Sanders",
       interviewer: {
         id: 1,
-        name: "Sylvia Palmer",
+        name: "Sally Struthers",
         avatar: "https://i.imgur.com/LpaY82x.png",
       }
     }
@@ -61,7 +44,7 @@ const appointments = [
       student: "George Costanza",
       interviewer: {
         id: 1,
-        name: "Sylvia Palmer",
+        name: "Abraham Lincoln",
         avatar: "https://i.imgur.com/LpaY82x.png",
       }
     }
@@ -73,7 +56,7 @@ const appointments = [
       student: "Homer Simpson",
       interviewer: {
         id: 1,
-        name: "Sylvia Palmer",
+        name: "Gomer Pyle",
         avatar: "https://i.imgur.com/LpaY82x.png",
       }
     }
@@ -81,7 +64,20 @@ const appointments = [
 ];
 
 export default function Application(props) {
-  const [day, setDay] = useState("Monday");
+  const [day, setDay] = useState("");
+  const [days, setDays] = useState([]);
+
+  useEffect(() => {
+    async function getDays() {
+      try {
+        const response = await axios.get(`/api/days`);
+        setDays(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getDays();
+  }, []);
 
   return (
     <main className="layout">
