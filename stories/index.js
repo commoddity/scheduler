@@ -24,188 +24,196 @@ import Form from 'components/Appointment/Form';
 
 //Stories of BUTTON
 storiesOf('Button', module)
-  .addParameters({
-    backgrounds: [{ name: 'dark', interviewer: '#222f3e', default: true }]
-  })
-  .add('Base', () => <Button>Base</Button>)
-  .add('Confirm', () => <Button confirm>Confirm</Button>)
-  .add('Danger', () => <Button danger>Cancel</Button>)
-  .add('Clickable', () => (
-    <Button onClick={action('button-clicked')}>Clickable</Button>
-  ))
-  .add('Disabled', () => (
-    <Button disabled onClick={action('button-clicked')}>
-      Disabled
-    </Button>
-  ));
+	.addParameters({
+		backgrounds: [{ name: 'dark', interviewer: '#222f3e', default: true }]
+	})
+	.add('Base', () => <Button>Base</Button>)
+	.add('Confirm', () => <Button confirm>Confirm</Button>)
+	.add('Danger', () => <Button danger>Cancel</Button>)
+	.add('Clickable', () => (
+		<Button onClick={action('button-clicked')}>Clickable</Button>
+	))
+	.add('Disabled', () => (
+		<Button disabled onClick={action('button-clicked')}>
+			Disabled
+		</Button>
+	));
 
 //Stories of DAYLISTITEM
 storiesOf('DayListItem', module)
-  .addParameters({
-    backgrounds: [{ name: 'dark', interviewer: '#222f3e', default: true }]
-  })
-  .add('Unselected', () => <DayListItem name="Monday" spots={5} />)
-  .add('Selected', () => <DayListItem name="Monday" spots={5} selected />)
-  .add('Full', () => <DayListItem name="Monday" spots={0} />)
-  .add('Clickable', () => (
-    <DayListItem name="Tuesday" setDay={action('setDay')} spots={5} />
-  ));
+	.addParameters({
+		backgrounds: [{ name: 'dark', interviewer: '#222f3e', default: true }]
+	})
+	.add('Unselected', () => <DayListItem name='Monday' spots={5} />)
+	.add('Selected', () => <DayListItem name='Monday' spots={5} selected />)
+	.add('Full', () => <DayListItem name='Monday' spots={0} />)
+	.add('Clickable', () => (
+		<DayListItem name='Tuesday' setDay={action('setDay')} spots={5} />
+	));
 
 //Stories of DAYLIST
 const days = [
-  {
-    id: 1,
-    name: 'Monday',
-    spots: 2
-  },
-  {
-    id: 2,
-    name: 'Tuesday',
-    spots: 5
-  },
-  {
-    id: 3,
-    name: 'Wednesday',
-    spots: 0
-  }
+	{
+		id: 1,
+		name: 'Monday',
+		spots: 2
+	},
+	{
+		id: 2,
+		name: 'Tuesday',
+		spots: 5
+	},
+	{
+		id: 3,
+		name: 'Wednesday',
+		spots: 0
+	}
 ];
 
 storiesOf('DayList', module)
-  .addParameters({
-    backgrounds: [{ name: 'dark', interviewer: '#222f3e', default: true }]
-  })
-  .add('Monday', () => (
-    <DayList days={days} day={'Monday'} setDay={action('setDay')} />
-  ))
-  .add('Tuesday', () => (
-    <DayList days={days} day={'Tuesday'} setDay={action('setDay')} />
-  ));
+	.addParameters({
+		backgrounds: [{ name: 'dark', interviewer: '#222f3e', default: true }]
+	})
+	.add('Monday', () => (
+		<DayList days={days} day={'Monday'} setDay={action('setDay')} />
+	))
+	.add('Tuesday', () => (
+		<DayList days={days} day={'Tuesday'} setDay={action('setDay')} />
+	));
 
 //Stories of INTERVIEWERLISTITEM
 const interviewer = {
-  id: 1,
-  name: 'Sylvia Palmer',
-  avatar: 'https://i.imgur.com/LpaY82x.png'
+	id: 1,
+	name: 'Sylvia Palmer',
+	avatar: 'https://i.imgur.com/LpaY82x.png'
 };
 
 storiesOf('InterviewerListItem', module)
-  .addParameters({
-    backgrounds: [{ name: 'dark', interviewer: '#222f3e', default: true }]
-  })
-  .add('Unselected', () => (
-    <InterviewerListItem
-      id={interviewer.id}
-      name={interviewer.name}
-      avatar={interviewer.avatar}
-    />
-  ))
-  .add('Selected', () => (
-    <InterviewerListItem
-      id={interviewer.id}
-      name={interviewer.name}
-      avatar={interviewer.avatar}
-      selected
-    />
-  ))
-  .add('Clickable', () => (
-    <InterviewerListItem
-      id={interviewer.id}
-      name={interviewer.name}
-      avatar={interviewer.avatar}
-      setInterviewer={event => action('setInterviewer')(interviewer.id)}
-    />
-  ));
+	.addParameters({
+		backgrounds: [{ name: 'dark', interviewer: '#222f3e', default: true }]
+	})
+	.add('Unselected', () => (
+		<InterviewerListItem
+			id={interviewer.id}
+			name={interviewer.name}
+			avatar={interviewer.avatar}
+		/>
+	))
+	.add('Selected', () => (
+		<InterviewerListItem
+			id={interviewer.id}
+			name={interviewer.name}
+			avatar={interviewer.avatar}
+			selected
+		/>
+	))
+	.add('Clickable', () => (
+		<InterviewerListItem
+			id={interviewer.id}
+			name={interviewer.name}
+			avatar={interviewer.avatar}
+			setInterviewer={(event) => action('setInterviewer')(interviewer.id)}
+		/>
+	));
 
 //Stories of INTERVIEWERLIST
 const interviewers = [
-  { id: 1, name: 'Sylvia Palmer', avatar: 'https://i.imgur.com/LpaY82x.png' },
-  { id: 2, name: 'Tori Malcolm', avatar: 'https://i.imgur.com/Nmx0Qxo.png' },
-  { id: 3, name: 'Mildred Nazir', avatar: 'https://i.imgur.com/T2WwVfS.png' },
-  { id: 4, name: 'Cohana Roy', avatar: 'https://i.imgur.com/FK8V841.jpg' },
-  { id: 5, name: 'Sven Jones', avatar: 'https://i.imgur.com/twYrpay.jpg' }
+	{
+		id: 1,
+		name: 'Sylvia Palmer',
+		avatar: 'https://i.imgur.com/LpaY82x.png'
+	},
+	{
+		id: 2,
+		name: 'Tori Malcolm',
+		avatar: 'https://i.imgur.com/Nmx0Qxo.png'
+	},
+	{
+		id: 3,
+		name: 'Mildred Nazir',
+		avatar: 'https://i.imgur.com/T2WwVfS.png'
+	},
+	{ id: 4, name: 'Cohana Roy', avatar: 'https://i.imgur.com/FK8V841.jpg' },
+	{ id: 5, name: 'Sven Jones', avatar: 'https://i.imgur.com/twYrpay.jpg' }
 ];
 
 storiesOf('InterviewerList', module)
-  .addParameters({
-    backgrounds: [{ name: 'dark', interviewer: '#222f3e', default: true }]
-  })
-  .add('Initial', () => (
-    <InterviewerList
-      interviewers={interviewers}
-      setInterviewer={action('setInterviewer')}
-    />
-  ))
-  .add('Preselected', () => (
-    <InterviewerList
-      interviewers={interviewers}
-      interviewer={3}
-      setInterviewer={action('setInterviewer')}
-    />
-  ));
+	.addParameters({
+		backgrounds: [{ name: 'dark', interviewer: '#222f3e', default: true }]
+	})
+	.add('Initial', () => (
+		<InterviewerList
+			interviewers={interviewers}
+			setInterviewer={action('setInterviewer')}
+		/>
+	))
+	.add('Preselected', () => (
+		<InterviewerList
+			interviewers={interviewers}
+			interviewer={3}
+			setInterviewer={action('setInterviewer')}
+		/>
+	));
 
 storiesOf('Appointment', module)
-  .addParameters({
-    backgrounds: [{ name: 'white', interviewer: '#fff', default: true }]
-  })
-  .add('Appointment', () => (
-    <Appointment
-      name={name}
-    />
-  ))
-  .add('Appointment with Time', () => <Appointment time="12pm" />)
-  .add('Header', () => <Header time="12pm" />)
-  .add('Empty', () => <Empty onAdd={action('onAdd')} />)
-  .add('Show', () => (
-    <Show
-      student="Lydia Miller-Jones"
-      interviewer={interviewers}
-      onEdit={action('onEdit')}
-      onDelete={action('onDelete')}
-    />
-  ))
-  .add('Confirm', () => (
-    <Confirm
-      message="Delete the Appointment?"
-      onConfirm={action('onConfirm')}
-      onCancel={action('onCancel')}
-    />
-  ))
-  .add('Status', () => <Status message="Deleting" />)
-  .add('Error', () => (
-    <Error
-      message="Could not delete appointment."
-      onClose={action('onClose')}
-    />
-  ))
-  .add('Edit', () => (
-    <Form
-      name
-      interviewers={interviewers}
-      interviewer={null}
-      onSave={action('onSave')}
-      onCancel={action('onCancel')}
-    />
-  ))
-  .add('Create', () => (
-    <Form
-      interviewers={interviewers}
-      onSave={action('onSave')}
-      onCancel={action('onCancel')}
-    />
-  ))
-  .add("Appointment Empty", () => (
-    <Fragment>
-      <Appointment id={1} time="12pm" />
-      <Appointment id="last" time="1pm" />
-    </Fragment>
-  ))
-  .add('Appointment Booked', () => (
-    <Fragment>
-      <Appointment
-        id={1}
-        time="12pm"
-        interview={{ student: "Lydia Miller-Jones", interviewer }}
-      />
-      <Appointment id="last" time="1pm" />
-    </Fragment>
-  ));
+	.addParameters({
+		backgrounds: [{ name: 'white', interviewer: '#fff', default: true }]
+	})
+	.add('Appointment', () => <Appointment name={name} />)
+	.add('Appointment with Time', () => <Appointment time='12pm' />)
+	.add('Header', () => <Header time='12pm' />)
+	.add('Empty', () => <Empty onAdd={action('onAdd')} />)
+	.add('Show', () => (
+		<Show
+			student='Lydia Miller-Jones'
+			interviewer={interviewers}
+			onEdit={action('onEdit')}
+			onDelete={action('onDelete')}
+		/>
+	))
+	.add('Confirm', () => (
+		<Confirm
+			message='Delete the Appointment?'
+			onConfirm={action('onConfirm')}
+			onCancel={action('onCancel')}
+		/>
+	))
+	.add('Status', () => <Status message='Deleting' />)
+	.add('Error', () => (
+		<Error
+			message='Could not delete appointment.'
+			onClose={action('onClose')}
+		/>
+	))
+	.add('Edit', () => (
+		<Form
+			name
+			interviewers={interviewers}
+			interviewer={null}
+			onSave={action('onSave')}
+			onCancel={action('onCancel')}
+		/>
+	))
+	.add('Create', () => (
+		<Form
+			interviewers={interviewers}
+			onSave={action('onSave')}
+			onCancel={action('onCancel')}
+		/>
+	))
+	.add('Appointment Empty', () => (
+		<Fragment>
+			<Appointment id={1} time='12pm' />
+			<Appointment id='last' time='1pm' />
+		</Fragment>
+	))
+	.add('Appointment Booked', () => (
+		<Fragment>
+			<Appointment
+				id={1}
+				time='12pm'
+				interview={{ student: 'Lydia Miller-Jones', interviewer }}
+			/>
+			<Appointment id='last' time='1pm' />
+		</Fragment>
+	));
