@@ -3,8 +3,6 @@ import Axios from 'axios';
 
 import 'components/Application.scss';
 
-// import "components/Appointment";
-
 import DayList from 'components/DayList';
 import Appointment from './Appointment';
 
