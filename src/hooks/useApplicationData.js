@@ -1,15 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import Axios from 'axios';
 
-export default function useApplicationData() {
-	const [state, setState] = useState({
-		day: 'Monday',
-		days: [],
-		appointments: {},
-		interviewers: {}
-	});
+const SET_DAY = 'SET_DAY';
+const SET_APPLICATION_DATA = 'SET_APPLICATION_DATA';
+const SET_INTERVIEW = 'SET_INTERVIEW';
 
-	const setDay = (day) => setState({ ...state, day });
+const initialValues = {
+	day: 'Monday',
+	days: [],
+	appointments: {},
+	interviewers: {}
+};
+
+function reducer(state, action) {
+	if (action.type === 'SET_DAY') {
+		return { ...state, day: action.value };
+	} else if (action.type === 'SET_APPLICATION_DATA') {
+		return { ...state, ...action.value };
+	} else if (action.type === 'SET_INTERVIEW') {
+		return { ...state, appointments: action.value };
+	} else {
+		return initialValues;
+	}
+}
+
+export default function useApplicationData() {
+	const [state, dispatch] = useReducer(reducer, initialValues);
+
+	const setDay = (day) => dispatch({ type: SET_DAY, value: day });
 
 	useEffect(() => {
 		async function getDays() {
@@ -19,12 +37,14 @@ export default function useApplicationData() {
 					Axios.get(`/api/appointments`).then((res) => res.data),
 					Axios.get(`/api/interviewers`).then((res) => res.data)
 				]);
-				setState((prev) => ({
-					...prev,
-					days,
-					appointments,
-					interviewers
-				}));
+				dispatch({
+					type: SET_APPLICATION_DATA,
+					value: {
+						days,
+						appointments,
+						interviewers
+					}
+				});
 			} catch (error) {
 				console.log(error);
 			}
@@ -45,9 +65,9 @@ export default function useApplicationData() {
 
 		return Axios.put(`/api/appointments/${id}`, { interview }).then(
 			(res) => {
-				setState({
-					...state,
-					appointments
+				dispatch({
+					type: SET_INTERVIEW,
+					value: appointments
 				});
 			}
 		);
