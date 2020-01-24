@@ -13,22 +13,22 @@ const initialValues = {
 	interviewers: {}
 };
 
+const lookupTable = {
+	SET_DAY: (state, action) => ({ ...state, day: action.value }),
+	SET_APPLICATION_DATA: (state, action) => ({ ...state, ...action.value }),
+	SET_INTERVIEW: (state, action) => ({
+		...state,
+		appointments: action.value[0],
+		days: action.value[1]
+	}),
+	DELETE_INTERVIEW: (state, action) => ({ ...state, days: action.value }),
+	default: initialValues
+};
+
 function reducer(state, action) {
-	if (action.type === 'SET_DAY') {
-		return { ...state, day: action.value };
-	} else if (action.type === 'SET_APPLICATION_DATA') {
-		return { ...state, ...action.value };
-	} else if (action.type === 'SET_INTERVIEW') {
-		return {
-			...state,
-			appointments: action.value[0],
-			days: action.value[1]
-		};
-	} else if (action.type === 'DELETE_INTERVIEW') {
-		return { ...state, days: action.value };
-	} else {
-		return initialValues;
-	}
+	return lookupTable[action.type]
+		? lookupTable[action.type](state, action)
+		: lookupTable.default;
 }
 
 export default function useApplicationData() {
