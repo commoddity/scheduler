@@ -4,6 +4,7 @@ import Axios from 'axios';
 const SET_DAY = 'SET_DAY';
 const SET_APPLICATION_DATA = 'SET_APPLICATION_DATA';
 const SET_INTERVIEW = 'SET_INTERVIEW';
+const DELETE_INTERVIEW = 'DELETE_INTERVIEW';
 
 const initialValues = {
 	day: 'Monday',
@@ -18,7 +19,13 @@ function reducer(state, action) {
 	} else if (action.type === 'SET_APPLICATION_DATA') {
 		return { ...state, ...action.value };
 	} else if (action.type === 'SET_INTERVIEW') {
-		return { ...state, appointments: action.value };
+		return {
+			...state,
+			appointments: action.value[0],
+			days: action.value[1]
+		};
+	} else if (action.type === 'DELETE_INTERVIEW') {
+		return { ...state, days: action.value };
 	} else {
 		return initialValues;
 	}
@@ -63,17 +70,48 @@ export default function useApplicationData() {
 			[id]: appointment
 		};
 
+		const dayId = Math.ceil(id / 5);
+
+		const days = state.days.map((item) => {
+			if (item.id !== dayId) {
+				return item;
+			}
+			return {
+				...item,
+				spots: item.spots > 0 && item.spots - 1
+			};
+		});
+
 		return Axios.put(`/api/appointments/${id}`, { interview }).then(
 			(res) => {
 				dispatch({
 					type: SET_INTERVIEW,
-					value: appointments
+					value: [appointments, days]
 				});
 			}
 		);
 	}
 
-	const cancelInterview = (id) => Axios.delete(`/api/appointments/${id}`);
+	const cancelInterview = (id) => {
+		const dayId = Math.ceil(id / 5);
+
+		const days = state.days.map((item) => {
+			if (item.id !== dayId) {
+				return item;
+			}
+			return {
+				...item,
+				spots: item.spots < 5 && item.spots + 1
+			};
+		});
+
+		return Axios.delete(`/api/appointments/${id}`).then((res) => {
+			dispatch({
+				type: DELETE_INTERVIEW,
+				value: days
+			});
+		});
+	};
 
 	return { state, setDay, bookInterview, cancelInterview };
 }
