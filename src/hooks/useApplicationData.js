@@ -1,10 +1,10 @@
 import React, { useReducer, useEffect } from 'react';
 import Axios from 'axios';
 
+//Reducer Variables and Configuration
 const SET_DAY = 'SET_DAY';
 const SET_APPLICATION_DATA = 'SET_APPLICATION_DATA';
 const SET_INTERVIEW = 'SET_INTERVIEW';
-const DELETE_INTERVIEW = 'DELETE_INTERVIEW';
 
 const initialValues = {
 	day: 'Monday',
@@ -29,9 +29,12 @@ function reducer(state, action) {
 		: lookupTable.default;
 }
 
+//Hook Function Body
 export default function useApplicationData() {
+	//useReducer call to set state.
 	const [state, dispatch] = useReducer(reducer, initialValues);
 
+	//Initial Page Load useEffect
 	useEffect(() => {
 		async function getDays() {
 			try {
@@ -55,34 +58,49 @@ export default function useApplicationData() {
 		getDays();
 	}, []);
 
+	// Web Socket Configuration
 	const socket = new WebSocket('ws://localhost:8001');
 
 	socket.onmessage = function(event) {
 		const parsed = JSON.parse(event.data);
+		setInterviewFromMessage(parsed);
+	};
 
-		const appointment = {
-			...state.appointments[parsed.id],
-			interview: parsed.interview ? { ...parsed.interview } : null
-		};
-
-		const appointments = {
-			...state.appointments,
-			[parsed.id]: appointment
-		};
+	// Reducer Setter Functions
+	const setInterviewFromMessage = (message) => {
+		const appointments = changeAppointments(message);
 
 		const days = changeSpots(
-			parsed.id,
-			parsed.interview ? 'book' : 'cancel'
+			message.id,
+			message.interview ? 'book' : 'cancel'
 		);
 
-		parsed.type === 'SET_INTERVIEW' &&
+		message.type === 'SET_INTERVIEW' &&
 			dispatch({ type: SET_INTERVIEW, value: [appointments, days] });
 	};
 
 	const setDay = (day) => dispatch({ type: SET_DAY, value: day });
 
+	// Reducer Value Constructor Functions
+	const changeAppointments = (messageData) => {
+		const appointment = {
+			...state.appointments[messageData.id],
+			interview: messageData.interview
+				? { ...messageData.interview }
+				: null
+		};
+
+		const appointments = {
+			...state.appointments,
+			[messageData.id]: appointment
+		};
+
+		return appointments;
+	};
+
 	const changeSpots = (id, action) => {
 		const dayId = Math.ceil(id / 5);
+
 		return state.days.map((item) => {
 			if (item.id !== dayId) {
 				return item;
@@ -97,6 +115,7 @@ export default function useApplicationData() {
 		});
 	};
 
+	// API Interview Setter Functions
 	function bookInterview(id, interview) {
 		Axios.put(`/api/appointments/${id}`, { interview });
 	}
@@ -105,5 +124,6 @@ export default function useApplicationData() {
 		Axios.delete(`/api/appointments/${id}`);
 	}
 
+	// Exported Props/Functions
 	return { state, setDay, bookInterview, cancelInterview };
 }
