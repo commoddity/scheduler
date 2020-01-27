@@ -20,9 +20,7 @@ const lookupTable = {
 		...state,
 		appointments: action.value[0],
 		days: action.value[1]
-	}),
-	DELETE_INTERVIEW: (state, action) => ({ ...state, days: action.value }),
-	default: initialValues
+	})
 };
 
 function reducer(state, action) {
@@ -33,8 +31,6 @@ function reducer(state, action) {
 
 export default function useApplicationData() {
 	const [state, dispatch] = useReducer(reducer, initialValues);
-
-	const setDay = (day) => dispatch({ type: SET_DAY, value: day });
 
 	useEffect(() => {
 		async function getDays() {
@@ -59,59 +55,55 @@ export default function useApplicationData() {
 		getDays();
 	}, []);
 
-	function bookInterview(id, interview) {
+	const socket = new WebSocket('ws://localhost:8001');
+
+	socket.onmessage = function(event) {
+		const parsed = JSON.parse(event.data);
+
 		const appointment = {
-			...state.appointments[id],
-			interview: { ...interview }
+			...state.appointments[parsed.id],
+			interview: parsed.interview ? { ...parsed.interview } : null
 		};
 
 		const appointments = {
 			...state.appointments,
-			[id]: appointment
+			[parsed.id]: appointment
 		};
 
-		const dayId = Math.ceil(id / 5);
-
-		const days = state.days.map((item) => {
-			if (item.id !== dayId) {
-				return item;
-			}
-			return {
-				...item,
-				spots: item.spots > 0 && item.spots - 1
-			};
-		});
-
-		return Axios.put(`/api/appointments/${id}`, { interview }).then(
-			(res) => {
-				dispatch({
-					type: SET_INTERVIEW,
-					value: [appointments, days]
-				});
-			}
+		const days = changeSpots(
+			parsed.id,
+			parsed.interview ? 'book' : 'cancel'
 		);
-	}
 
-	const cancelInterview = (id) => {
+		parsed.type === 'SET_INTERVIEW' &&
+			dispatch({ type: SET_INTERVIEW, value: [appointments, days] });
+	};
+
+	const setDay = (day) => dispatch({ type: SET_DAY, value: day });
+
+	const changeSpots = (id, action) => {
 		const dayId = Math.ceil(id / 5);
-
-		const days = state.days.map((item) => {
+		return state.days.map((item) => {
 			if (item.id !== dayId) {
 				return item;
 			}
 			return {
 				...item,
-				spots: item.spots < 5 && item.spots + 1
+				spots:
+					action === 'book'
+						? item.spots > 0 && item.spots - 1
+						: item.spots < 5 && item.spots + 1
 			};
-		});
-
-		return Axios.delete(`/api/appointments/${id}`).then((res) => {
-			dispatch({
-				type: DELETE_INTERVIEW,
-				value: days
-			});
 		});
 	};
+
+	function bookInterview(id, interview) {
+		Axios.put(`/api/appointments/${id}`, { interview });
+	}
+
+	function cancelInterview(id) {
+		Axios.delete(`/api/appointments/${id}`);
+	}
 
 	return { state, setDay, bookInterview, cancelInterview };
 }

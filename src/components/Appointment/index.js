@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import 'components/Appointment/styles.scss';
 
@@ -27,26 +27,27 @@ export default function Appointment(props) {
 		props.interview ? SHOW : EMPTY
 	);
 
+	useEffect(() => {
+		if (props.interview && mode === EMPTY) {
+			transition(SHOW);
+		}
+		if (props.interview === null && mode === SHOW) {
+			transition(EMPTY);
+		}
+	}, [props.interview, transition, mode]);
+
 	function save(name, interviewer) {
 		const interview = {
 			student: name,
 			interviewer
 		};
 		transition(SAVING);
-		props
-			.bookInterview(props.id, interview)
-			.then(() => {
-				transition(SHOW);
-			})
-			.catch((err) => transition(ERROR_SAVE, true));
+		props.bookInterview(props.id, interview);
 	}
 
 	function destroy() {
 		transition(DELETING, true);
-		props
-			.cancelInterview(props.id)
-			.then(() => transition(EMPTY))
-			.catch((err) => transition(ERROR_DELETE, true));
+		props.cancelInterview(props.id);
 	}
 
 	return (
@@ -60,7 +61,7 @@ export default function Appointment(props) {
 					onCancel={() => back()}
 				/>
 			)}
-			{mode === SHOW && (
+			{mode === SHOW && props.interview && (
 				<Show
 					student={props.interview.student}
 					interviewer={props.interview.interviewer}
