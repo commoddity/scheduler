@@ -60,7 +60,7 @@ export default function useApplicationData() {
 	}, []);
 
 	// Web Socket Configuration - localhost:8001 is API port
-	const socket = new WebSocket('ws://localhost:8001');
+	const socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
 
 	socket.onmessage = function(event) {
 		const parsed = JSON.parse(event.data);
