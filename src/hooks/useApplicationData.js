@@ -20,7 +20,8 @@ const lookupTable = {
 		...state,
 		appointments: action.value[0],
 		days: action.value[1]
-	})
+	}),
+	default: initialValues
 };
 
 function reducer(state, action) {
@@ -34,7 +35,7 @@ export default function useApplicationData() {
 	//useReducer call to set state.
 	const [state, dispatch] = useReducer(reducer, initialValues);
 
-	//Initial Page Load useEffect
+	//Initial Page Load useEffect - loads appointments from API
 	useEffect(() => {
 		async function getDays() {
 			try {
@@ -58,7 +59,7 @@ export default function useApplicationData() {
 		getDays();
 	}, []);
 
-	// Web Socket Configuration
+	// Web Socket Configuration - localhost:8001 is API port
 	const socket = new WebSocket('ws://localhost:8001');
 
 	socket.onmessage = function(event) {
@@ -69,12 +70,10 @@ export default function useApplicationData() {
 	// Reducer Setter Functions
 	const setInterviewFromMessage = (message) => {
 		const appointments = changeAppointments(message);
-
 		const days = changeSpots(
 			message.id,
 			message.interview ? 'book' : 'cancel'
 		);
-
 		message.type === 'SET_INTERVIEW' &&
 			dispatch({ type: SET_INTERVIEW, value: [appointments, days] });
 	};
@@ -89,28 +88,25 @@ export default function useApplicationData() {
 				? { ...messageData.interview }
 				: null
 		};
-
 		const appointments = {
 			...state.appointments,
 			[messageData.id]: appointment
 		};
-
 		return appointments;
 	};
 
 	const changeSpots = (id, action) => {
 		const dayId = Math.ceil(id / 5);
-
-		return state.days.map((item) => {
-			if (item.id !== dayId) {
-				return item;
+		return state.days.map((day) => {
+			if (day.id !== dayId) {
+				return day;
 			}
 			return {
-				...item,
+				...day,
 				spots:
 					action === 'book'
-						? item.spots > 0 && item.spots - 1
-						: item.spots < 5 && item.spots + 1
+						? day.spots > 0 && day.spots - 1
+						: day.spots < 5 && day.spots + 1
 			};
 		});
 	};
