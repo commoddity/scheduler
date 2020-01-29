@@ -19,7 +19,6 @@ const SAVING = 'SAVING';
 const EDIT = 'EDIT';
 const CONFIRM = 'CONFIRM';
 const DELETING = 'DELETING';
-
 const ERROR_SAVE = 'ERROR_SAVE';
 const ERROR_DELETE = 'ERROR_DELETE';
 
@@ -28,15 +27,24 @@ export default function Appointment(props) {
 		props.interview ? SHOW : EMPTY
 	);
 
+	//Handles Appointment component transitions
 	useEffect(() => {
+		if (props.interview && mode === EMPTY) {
+			transition(SHOW);
+		}
 		if (props.interview && mode === SAVING) {
 			transition(SHOW);
 		}
 		if (!props.interview && mode === DELETING) {
 			transition(EMPTY);
 		}
+		if (props.interview === null && mode === SHOW) {
+			transition(EMPTY);
+		}
 	}, [props.interview, transition, mode]);
 
+	// Functions for saving and deleting Appointments
+	// Make Axios requests via useApplicationData hook
 	function save(name, interviewer) {
 		const interview = {
 			student: name,
@@ -58,6 +66,8 @@ export default function Appointment(props) {
 			transition(ERROR_DELETE);
 		}
 	}
+
+	// Appointment component handles transitions between modes
 	return (
 		<article className='appointment' data-testid='appointment'>
 			<Header time={props.time} />
@@ -77,14 +87,20 @@ export default function Appointment(props) {
 					onDelete={() => transition(CONFIRM)}
 				/>
 			)}
-			{mode === SAVING && <Status message='Saving' />}
 			{mode === EDIT && (
 				<Form
 					name={props.interview.student}
 					interviewer={props.interview.interviewer.id}
 					interviewers={props.interviewers}
 					onSave={save}
-					onCancel={() => back()}
+					onCancel={() => transition(SHOW)}
+				/>
+			)}
+			{mode === SAVING && <Status message='Saving' />}
+			{mode === ERROR_SAVE && (
+				<Error
+					message='An error occured while attempting to save appointment.'
+					onClose={() => back()}
 				/>
 			)}
 			{mode === CONFIRM && (
@@ -95,12 +111,6 @@ export default function Appointment(props) {
 				/>
 			)}
 			{mode === DELETING && <Status message='Deleting' />}
-			{mode === ERROR_SAVE && (
-				<Error
-					message='An error occured while attempting to save appointment.'
-					onClose={() => back()}
-				/>
-			)}
 			{mode === ERROR_DELETE && (
 				<Error
 					message='An error occured while attempting to delete appointment.'

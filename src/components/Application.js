@@ -14,9 +14,11 @@ import { getInterview } from 'helpers/selectors';
 // Web Socket Configuration - localhost:8001 is API port
 const socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
 
+// Reducer constant definition
 const SET_INTERVIEW = 'SET_INTERVIEW';
 
 export default function Application(props) {
+	// Import state and functions from useApplicationData hook
 	const {
 		state,
 		setDay,
@@ -25,14 +27,26 @@ export default function Application(props) {
 		dispatch
 	} = useApplicationData();
 
+	// Sets Interview when Web Socket Message received from Server
+	// Message contains ID and interview object
 	useEffect(() => {
 		socket.onmessage = (event) => {
-			const parsedData = JSON.parse(event.data);
-			setInterviewFromMessage(parsedData);
+			const messageData = JSON.parse(event.data);
+			setInterviewFromMessage(messageData);
 		};
 	});
 
-	// Reducer Value Constructor Functions
+	// Calls reducer dispatch with updated appointment list
+	const setInterviewFromMessage = (messageData) => {
+		const appointments = changeAppointments(messageData);
+		messageData.type === 'SET_INTERVIEW' &&
+			dispatch({
+				type: SET_INTERVIEW,
+				payload: { appointments }
+			});
+	};
+
+	// Updates appointments object with value received via Web Socket message
 	const changeAppointments = (messageData) => {
 		const appointment = {
 			...state.appointments[messageData.id],
@@ -45,21 +59,9 @@ export default function Application(props) {
 		return appointments;
 	};
 
-	// Reducer Setter Functions
-	const setInterviewFromMessage = (message) => {
-		const appointments = changeAppointments(message);
-		const appointmentId = message.id;
-		message.type === 'SET_INTERVIEW' &&
-			dispatch({
-				type: SET_INTERVIEW,
-				payload: {
-					appointments,
-					appointmentId
-				}
-			});
-	};
-
+	// Call selector functions to get data for given day
 	const interviewers = getInterviewersForDay(state, state.day);
+
 	const appointments = getAppointmentsForDay(state, state.day).map(
 		(appointment) => {
 			return (
@@ -75,6 +77,7 @@ export default function Application(props) {
 		}
 	);
 
+	// Return Application component body
 	return (
 		<main className='layout'>
 			<section className='sidebar'>

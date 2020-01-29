@@ -30,7 +30,7 @@ export default function useApplicationData() {
 				]);
 				dispatch({
 					type: SET_APPLICATION_DATA,
-					value: {
+					payload: {
 						days,
 						appointments,
 						interviewers
@@ -43,9 +43,10 @@ export default function useApplicationData() {
 		getDays();
 	}, []);
 
-	const setDay = (day) => dispatch({ type: SET_DAY, value: day });
+	// Sets current day on sidebar click
+	const setDay = (day) => dispatch({ type: SET_DAY, payload: day });
 
-	// API Interview Setter Functions
+	// Interview API request functions
 	function bookInterview(id, interview) {
 		Axios.put(`/api/appointments/${id}`, { interview });
 	}
