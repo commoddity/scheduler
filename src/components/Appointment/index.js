@@ -8,6 +8,7 @@ import Empty from './Empty.js';
 import Form from './Form.js';
 import Status from './Status.js';
 import Confirm from './Confirm.js';
+import Error from './Error.js';
 
 import useVisualMode from '../../hooks/useVisualMode.js';
 
@@ -28,10 +29,10 @@ export default function Appointment(props) {
 	);
 
 	useEffect(() => {
-		if (props.interview && mode === EMPTY) {
+		if (props.interview && mode === SAVING) {
 			transition(SHOW);
 		}
-		if (props.interview === null && mode === SHOW) {
+		if (!props.interview && mode === DELETING) {
 			transition(EMPTY);
 		}
 	}, [props.interview, transition, mode]);
@@ -41,15 +42,22 @@ export default function Appointment(props) {
 			student: name,
 			interviewer
 		};
-		transition(SAVING);
-		props.bookInterview(props.id, interview);
+		try {
+			transition(SAVING);
+			props.bookInterview(props.id, interview);
+		} catch {
+			transition(ERROR_SAVE);
+		}
 	}
 
 	function destroy() {
-		transition(DELETING, true);
-		props.cancelInterview(props.id);
+		try {
+			transition(DELETING, true);
+			props.cancelInterview(props.id);
+		} catch {
+			transition(ERROR_DELETE);
+		}
 	}
-
 	return (
 		<article className='appointment' data-testid='appointment'>
 			<Header time={props.time} />
@@ -87,6 +95,18 @@ export default function Appointment(props) {
 				/>
 			)}
 			{mode === DELETING && <Status message='Deleting' />}
+			{mode === ERROR_SAVE && (
+				<Error
+					message='An error occured while attempting to save appointment.'
+					onClose={() => back()}
+				/>
+			)}
+			{mode === ERROR_DELETE && (
+				<Error
+					message='An error occured while attempting to delete appointment.'
+					onClose={() => back()}
+				/>
+			)}
 		</article>
 	);
 }
