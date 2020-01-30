@@ -27,14 +27,13 @@ jobs:
 
     steps:
       - add_ssh_keys:
-          fingerprints: "07:bd:54:67:3a:49:2e:0a:c2:e2:5c:81:34:53:5f:97"
-            -
+          fingerprints:
+            - '07:bd:54:67:3a:49:2e:0a:c2:e2:5c:81:34:53:5f:97'
       - checkout
       - run:
           name: Push Master to Production
           command: |
             git push https://github.com/Commoddity/scheduler.git master:production
-
 
 workflows:
   version: 2
