@@ -1,20 +1,22 @@
-### Interview Scheduler
+# Interview Scheduler
 
-# Pascal van Leeuwen
+### Lighthouse Labs W08 - Pascal van Leeuwen - React Project
 
 - A single page web application that allows student to book time with interviewers in one of 5 blocks from Monday to Friday.
 - Students can choose their day, select an hour time slot, select an interviewer and create the interview.
 - They can also delete their interview, edit their name and change theri interviewer.
 
-## Cloud Hosting
+## Deployed Application
 
-The app is deployed online using a combination of Netlify for the clinet, Heroku for the server and CircleCI for continuous integration.
+The app is deployed online using Netlify for the client, Heroku for the server and CircleCI for continuous integration.
 
+```
 [Interview Scheduler Deployed on Netlify](https://elegant-heisenberg-653b5a.netlify.com/)
+```
 
 ### Stack:
 
-# Front-end:
+## Front-end:
 
 - [React](https://reactjs.org/)
 - [SASS](https://sass-lang.com/)
@@ -44,7 +46,7 @@ The app is deployed online using a combination of Netlify for the clinet, Heroku
 - [Heroku](https://www.heroku.com/)
 - [Netlify](https://www.netlify.com/)
 
-### Screenshots
+# Screenshots
 
 ![Component Tree of the Scheduler App](https://github.com/Commoddity/scheduler/blob/master/docs/scheduler-components.png)
 Component Tree of the App
