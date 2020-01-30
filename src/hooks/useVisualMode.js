@@ -7,7 +7,9 @@ export default function useVisualMode(initial) {
 
 	// Transitions modes OR replaces mode if 'replace = true'
 	const transition = (newMode, replace = false) => {
-		!replace ? history.push(newMode) : history.splice(-1, 1, newMode);
+		const newHistory = [...history];
+		!replace ? newHistory.push(newMode) : newHistory.splice(-1, 1, newMode);
+		setHistory(newHistory);
 		setMode(newMode);
 	};
 
