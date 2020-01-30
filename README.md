@@ -5,15 +5,26 @@
 - A single page web application that allows student to book time with interviewers in one of 5 blocks from Monday to Friday.
 - Students can choose their day, select an hour time slot, select an interviewer and create the interview.
 - They can also delete their interview, edit their name and change their interviewer.
+- The main [Scheduler](https://elegant-heisenberg-653b5a.netlify.com/) app was created using [React Hooks](https://reactjs.org/docs/hooks-intro.html).
+- The supplementary [Scheduler Dashboard](https://naughty-yonath-3da90b.netlify.com/) app was created using [React class components](https://reactjs.org/docs/react-component.html).
+
 - _All stretch work completed: web sockets and cloud deployment._
 
-## Deployed Application
+# Scheduler - _Deployed_
 
 The app is deployed online using Netlify for the client, Heroku for the server and CircleCI for continuous integration.
 
-# Link:
-
 [Interview Scheduler Deployed Link](https://elegant-heisenberg-653b5a.netlify.com/)
+
+# Scheduler Dashboard - _Deployed_
+
+- A separate Scheduler Dashboard application is also deployed, which provides the following information from the Scheduler App in real time:
+  - _Total Interviews_
+  - _Least Popular Time Slot_
+  - _Most Popular Day_
+  - _Average Interviews Per Day_
+
+[Interview Scheduler Dashboard Deployed Link](https://naughty-yonath-3da90b.netlify.com/)
 
 # Stack:
 
