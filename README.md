@@ -4,7 +4,7 @@
 
 - A single page web application that allows student to book time with interviewers in one of 5 blocks from Monday to Friday.
 - Students can choose their day, select an hour time slot, select an interviewer and create the interview.
-- They can also delete their interview, edit their name and change theri interviewer.
+- They can also delete their interview, edit their name and change their interviewer.
 - _All stretch work completed: web sockets and cloud deployment._
 
 ## Deployed Application
