@@ -14,7 +14,7 @@ The app is deployed online using Netlify for the client, Heroku for the server a
 [Interview Scheduler Deployed on Netlify](https://elegant-heisenberg-653b5a.netlify.com/)
 ```
 
-### Stack:
+# Stack:
 
 ## Front-end:
 
