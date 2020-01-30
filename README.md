@@ -89,6 +89,10 @@ The app is deployed online using Netlify for the client, Heroku for the server a
 
 ![Screenshot 5](https://github.com/Commoddity/scheduler/blob/master/docs/scheduler5.png)
 
+### Scheduler Dashboard App
+
+![Screenshot 5](https://github.com/Commoddity/scheduler/blob/master/docs/scheduler-dash.png)
+
 _Screenshots shown use the [Dark Reader](https://chrome.google.com/webstore/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh?hl=en) add-on for [Google Chrome](https://www.google.com/chrome/). Actual appearance may vary._
 
 ### Setup Instructions
