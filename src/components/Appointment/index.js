@@ -45,20 +45,24 @@ export default function Appointment(props) {
 			interviewer
 		};
 		transition(SAVING);
-		try {
-			props.bookInterview(props.id, interview).then(() => transition(SHOW));
-		} catch {
-			transition(ERROR_SAVE);
-		}
+		props
+			.bookInterview(props.id, interview)
+			.then(() => transition(SHOW))
+			.catch((err) => {
+				console.error(`An error occured while attempting to save: ${err}`);
+				transition(ERROR_SAVE, true);
+			});
 	}
 
 	function destroy() {
 		transition(DELETING, true);
-		try {
-			props.cancelInterview(props.id).then(() => transition(EMPTY));
-		} catch {
-			transition(ERROR_DELETE);
-		}
+		props
+			.cancelInterview(props.id)
+			.then(() => transition(EMPTY))
+			.catch((err) => {
+				console.error(`An error occured while attempting to delete: ${err}`);
+				transition(ERROR_DELETE, true);
+			});
 	}
 
 	// Appointment component handles transitions between modes
