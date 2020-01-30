@@ -46,12 +46,7 @@ export default function Appointment(props) {
 		};
 		transition(SAVING);
 		try {
-			props
-				.bookInterview(props.id, interview)
-				.then(() => transition(SHOW))
-				.catch((err) => {
-					console.error('Error deleting appointment: ', err);
-				});
+			props.bookInterview(props.id, interview).then(() => transition(SHOW));
 		} catch {
 			transition(ERROR_SAVE);
 		}
@@ -60,12 +55,7 @@ export default function Appointment(props) {
 	function destroy() {
 		transition(DELETING, true);
 		try {
-			props
-				.cancelInterview(props.id)
-				.then(() => transition(EMPTY))
-				.catch((err) => {
-					console.error('Error saving appointment: ', err);
-				});
+			props.cancelInterview(props.id).then(() => transition(EMPTY));
 		} catch {
 			transition(ERROR_DELETE);
 		}
