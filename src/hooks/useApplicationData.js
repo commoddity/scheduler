@@ -47,12 +47,12 @@ export default function useApplicationData() {
 	const setDay = (day) => dispatch({ type: SET_DAY, payload: day });
 
 	// Interview API request functions
-	function bookInterview(id, interview) {
-		return Axios.put(`/api/appointments/${id}`, { interview });
+	async function bookInterview(id, interview) {
+		return await Axios.put(`/api/appointments/${id}`, { interview });
 	}
 
-	function cancelInterview(id) {
-		return Axios.delete(`/api/appointments/${id}`);
+	async function cancelInterview(id) {
+		return await Axios.delete(`/api/appointments/${id}`);
 	}
 
 	// Exported Props/Functions
