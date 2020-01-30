@@ -11,7 +11,7 @@
 
 The app is deployed online using Netlify for the client, Heroku for the server and CircleCI for continuous integration.
 
-## Link:
+# Link:
 
 [Interview Scheduler Deployed Link](https://elegant-heisenberg-653b5a.netlify.com/)
 
@@ -23,26 +23,26 @@ The app is deployed online using Netlify for the client, Heroku for the server a
 - [SASS](https://sass-lang.com/)
 - [Axios](https://github.com/axios/axios)
 
-# Back-end
+## Back-end
 
 - [Node.js](https://nodejs.org/)
 - [Express](https://expressjs.com/)
 - [WebSocket API](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) _(Stretch)_
 
-# Database
+## Database
 
 - [PostgreSQL](https://www.postgresql.org/)
 
-# Testing
+## Testing
 
 - [Jest](https://jestjs.io/)
 - [Cypress](https://www.cypress.io/)
 
-# UI component Design
+## UI Component Design
 
 - [Storybook](https://storybook.js.org/)
 
-# Cloud Hosting Services
+## Cloud Hosting Services
 
 - [CircleCI](https://circleci.com/) _(Stretch)_
 - [Heroku](https://www.heroku.com/) _(Stretch)_
@@ -50,19 +50,32 @@ The app is deployed online using Netlify for the client, Heroku for the server a
 
 # Screenshots
 
-Component Tree of the App
+### Component Tree of the App
+
 ![Component Tree of the Scheduler App](https://github.com/Commoddity/scheduler/blob/master/docs/scheduler-components.png)
-Component Flow of the App
+
+### Component Flow of the App
+
 ![Component Flow](https://github.com/Commoddity/scheduler/blob/master/docs/scheduler-flow-chart.png)
-Main View
+
+### Main View
+
 ![Screenshot 1](https://github.com/Commoddity/scheduler/blob/master/docs/scheduler1.png)
-Delete Confirmation View
+
+### Delete Confirmation View
+
 ![Screenshot 2](https://github.com/Commoddity/scheduler/blob/master/docs/scheduler2.png)
-Deleting Status
+
+### Deleting Status
+
 ![Screenshot 3](https://github.com/Commoddity/scheduler/blob/master/docs/scheduler3.png)
-Edit Existing Appointment
+
+### Edit Existing Appointment
+
 ![Screenshot 4](https://github.com/Commoddity/scheduler/blob/master/docs/scheduler4.png)
-Saving Status
+
+### Saving Status
+
 ![Screenshot 5](https://github.com/Commoddity/scheduler/blob/master/docs/scheduler5.png)
 
 _Screenshots shown use the [Dark Reader](https://chrome.google.com/webstore/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh?hl=en) add-on for [Google Chrome](https://www.google.com/chrome/). Actual appearance may vary._
