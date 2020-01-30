@@ -5,6 +5,7 @@
 - A single page web application that allows student to book time with interviewers in one of 5 blocks from Monday to Friday.
 - Students can choose their day, select an hour time slot, select an interviewer and create the interview.
 - They can also delete their interview, edit their name and change theri interviewer.
+- _All stretch work completed: web sockets and deployment._
 
 ## Deployed Application
 
@@ -26,6 +27,7 @@ The app is deployed online using Netlify for the client, Heroku for the server a
 
 - [Node.js](https://nodejs.org/)
 - [Express](https://expressjs.com/)
+- [WebSocket API](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) _(Stretch)_
 
 # Database
 
@@ -42,9 +44,9 @@ The app is deployed online using Netlify for the client, Heroku for the server a
 
 # Cloud Hosting Services
 
-- [CircleCI](https://circleci.com/)
-- [Heroku](https://www.heroku.com/)
-- [Netlify](https://www.netlify.com/)
+- [CircleCI](https://circleci.com/) _(Stretch)_
+- [Heroku](https://www.heroku.com/) _(Stretch)_
+- [Netlify](https://www.netlify.com/) _(Stretch)_
 
 # Screenshots
 
