@@ -1,6 +1,6 @@
 # Interview Scheduler
 
-### Lighthouse Labs W08 - Pascal van Leeuwen - React Project
+### Lighthouse Labs Week 8 - Pascal van Leeuwen - React Project
 
 - A single page web application that allows student to book time with interviewers in one of 5 blocks from Monday to Friday.
 - Students can choose their day, select an hour time slot, select an interviewer and create the interview.
