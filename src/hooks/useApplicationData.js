@@ -48,11 +48,11 @@ export default function useApplicationData() {
 
 	// Interview API request functions
 	function bookInterview(id, interview) {
-		Axios.put(`/api/appointments/${id}`, { interview });
+		return Axios.put(`/api/appointments/${id}`, { interview });
 	}
 
 	function cancelInterview(id) {
-		Axios.delete(`/api/appointments/${id}`);
+		return Axios.delete(`/api/appointments/${id}`);
 	}
 
 	// Exported Props/Functions

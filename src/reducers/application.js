@@ -33,7 +33,7 @@ const lookupTable = {
 				spots: spotsAvailable
 			};
 		});
-		// Returns state with updated appointment list and updated days array
+		// Returns state with updated appointment list and days array
 		return {
 			...state,
 			appointments: action.payload.appointments,

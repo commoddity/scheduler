@@ -32,12 +32,6 @@ export default function Appointment(props) {
 		if (props.interview && mode === EMPTY) {
 			transition(SHOW);
 		}
-		if (props.interview && mode === SAVING) {
-			transition(SHOW);
-		}
-		if (!props.interview && mode === DELETING) {
-			transition(EMPTY);
-		}
 		if (props.interview === null && mode === SHOW) {
 			transition(EMPTY);
 		}
@@ -50,21 +44,25 @@ export default function Appointment(props) {
 			student: name,
 			interviewer
 		};
-		try {
-			transition(SAVING);
-			props.bookInterview(props.id, interview);
-		} catch {
-			transition(ERROR_SAVE);
-		}
+		transition(SAVING);
+		props
+			.bookInterview(props.id, interview)
+			.then(() => transition(SHOW))
+			.catch((err) => {
+				console.error('Error deleting appointment: ', err);
+				transition(ERROR_SAVE);
+			});
 	}
 
 	function destroy() {
-		try {
-			transition(DELETING, true);
-			props.cancelInterview(props.id);
-		} catch {
-			transition(ERROR_DELETE);
-		}
+		transition(DELETING, true);
+		props
+			.cancelInterview(props.id)
+			.then(() => transition(EMPTY))
+			.catch((err) => {
+				console.error('Error saving appointment: ', err);
+				transition(ERROR_DELETE);
+			});
 	}
 
 	// Appointment component handles transitions between modes
