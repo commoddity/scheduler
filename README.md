@@ -10,9 +10,9 @@
 
 The app is deployed online using Netlify for the client, Heroku for the server and CircleCI for continuous integration.
 
-```
-[Interview Scheduler Deployed on Netlify](https://elegant-heisenberg-653b5a.netlify.com/)
-```
+## Link:
+
+[Interview Scheduler Deployed Link](https://elegant-heisenberg-653b5a.netlify.com/)
 
 # Stack:
 
