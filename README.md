@@ -62,6 +62,8 @@ Component Flow of the App
 
 ![Screenshot 5](https://github.com/Commoddity/scheduler/blob/master/docs/scheduler5.png)
 
+_Screenshots shown use the [Dark Reader](https://chrome.google.com/webstore/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh?hl=en) add-on for [Google Chrome](https://www.google.com/chrome/). Actual appearance may vary._
+
 ### Setup Instructions
 
 Install dependencies with `npm install`.
