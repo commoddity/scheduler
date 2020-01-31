@@ -2,7 +2,7 @@
 
 ### Lighthouse Labs Week 8 - Pascal van Leeuwen - React Project
 
-- A single page web application that allows student to book time with interviewers in one of 5 blocks from Monday to Friday.
+- A single page web app that allows students to book time with interviewers in one of 5 hourly blocks from 12pm to 5pm, Monday to Friday.
 - Students can choose their day, select an hour time slot, select an interviewer and create the interview.
 - They can also delete their interview, edit their name and change their interviewer.
 - The main [Scheduler](https://elegant-heisenberg-653b5a.netlify.com/) app was created using [React Hooks](https://reactjs.org/docs/hooks-intro.html).
@@ -14,11 +14,13 @@
 
 The app is deployed online using Netlify for the client, Heroku for the server and CircleCI for continuous integration.
 
+_Note: The deployed application may take a few seconds to work properly on initial page load as the Heroku-hosted server takes time to wake up if it hasn't been used recently._
+
 [Interview Scheduler Deployed Link](https://elegant-heisenberg-653b5a.netlify.com/)
 
 # Scheduler Dashboard - _Deployed_
 
-- A separate Scheduler Dashboard application is also deployed, which provides the following information from the Scheduler App in real time:
+- A separate Scheduler Dashboard application is also deployed, which provides the following information from the Scheduler App in real time, updated via the Web Socket API:
   - _Total Interviews_
   - _Least Popular Time Slot_
   - _Most Popular Day_
